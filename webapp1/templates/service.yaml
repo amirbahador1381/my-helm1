@@ -1,15 +1,13 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "webapp1.fullname" . }}
-  labels:
-    {{- include "webapp1.labels" . | nindent 4 }}
+  name: first-helm-service
 spec:
-  type: {{ .Values.service.type }}
-  ports:
-    - port: {{ .Values.service.port }}
-      targetPort: http
-      protocol: TCP
-      name: http
+  type: NodePort
   selector:
-    {{- include "webapp1.selectorLabels" . | nindent 4 }}
+    app: first-helm
+  ports:
+    - protocol: TCP
+      port: 8069
+      targetPort: 8069
+      nodePort: 30300
